@@ -4,27 +4,20 @@
     <meta charset="utf-8">
     <title>rest-todoolean</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" charset="utf-8"></script>
   </head>
   <body>
 
+    <div class="todos">
+
+    </div>
 
 
     <!-- Template Handlebars -->
-    <!-- <script id="entry-template" type="text/x-handlebars-template">
-      <div class="locandina">
-        <div class="contenuto">
-          <h3>{{title}}</h3>
-          <p> Titolo originale: {{original_title}}</p>
-          <p>Lingua: {{{language}}}</p>
-          <p>Voto: {{{vote_average}}}</p>
-          <p class="overview">{{overview}}</p>
-        </div>
-        <img src="{{poster_path}}" alt="">
-      </div>
-    </script> -->
+    <script id="entry-template" type="text/x-handlebars-template">
+      <li data-id={{id}}>{{text}}</li>
+    </script>
 
 
     <script src="js/script.js" charset="utf-8"></script>
