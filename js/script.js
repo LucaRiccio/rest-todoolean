@@ -6,7 +6,30 @@ $(document).ready(function(){
 
   getData();
 
+  $(document).on('click', '.delete', function(){
+    var elemento = $(this); // Salvo in una variabile il this (facoltativo, non è necessario).
+    var idToDo = elemento.parent().attr('data-id'); // Sull'elemento cliccato (this), risalgo al genitore (<li>) e ne prendo l'attributo (data-id)
+    deleteElement(idToDo);
+  });
+
 });
+
+function deleteElement(id){
+  $.ajax(
+    {
+      url: 'http://157.230.17.132:3025/todos/' + id,
+      method: 'DELETE',
+      success: function(risposta){
+        console.log(risposta);
+        $(".todos").html('');
+        getData();
+      },
+      error: function(){
+        alert("Errore");
+      }
+    }
+  );
+}
 
 
 function getData(){ // chiamata AJAX "trasformata" in funzione
@@ -28,7 +51,7 @@ function getElement(data){                  // <---- Ciò che generalmente inser
   var source = $("#entry-template").html();
   var template = Handlebars.compile(source);
   for (var i = 0; i < data.length; i++){
-    var context = {
+    var context = {       // Avrei potuto usare var context = risposta[i];
       text: data[i].text,
       id: data[i].id
     };
@@ -36,8 +59,3 @@ function getElement(data){                  // <---- Ciò che generalmente inser
     $(".todos").append(html);  // Inserisco/appendo nel DOM.
   }
 }
-
-
-
-
-// var context = risposta[i]; // il mio context, rappresentato dalle i di risposta, che sono degli oggetti.
