@@ -17,7 +17,45 @@ $(document).ready(function(){
     createElement(newElement); // Invoco una funzione che ha per argomento il valore della casella input salvato in var.
   })
 
+  $(document).on('click', 'span.testo', function(){
+    var questo = $(this);
+    $(".testo").removeClass("hidden");
+    questo.addClass("hidden");
+    $(".testo").next().addClass("hidden");
+    questo.next().removeClass("hidden");
+  });
+
+  $(document).on('keydown','.sovrascrivi',function(){
+    var idNewElement = $(this).parent().attr('data-id');
+    if (event.which == 13 || event.keyCode == 13){
+      var newElement = $(this).val();
+      updateElement(idNewElement,newElement);
+    }
+  });
+
 });
+
+
+// *** FUNZIONI ***
+
+function updateElement(id,elemento){ // chiamata AJAX per modificare i dati "trasformata" in funzione
+  $.ajax(
+    {
+      url: 'http://157.230.17.132:3025/todos/' + id,
+      method: 'PUT',
+      data:{
+        text:elemento
+      },
+      success: function(risposta){
+        $(".todos").html('');
+        getData(); //
+      },
+      error: function(){
+        alert("Errore");
+      }
+    }
+  );
+}
 
 
 function createElement(elemento){
@@ -72,7 +110,7 @@ function getData(){ // chiamata AJAX per ottenere i dati "trasformata" in funzio
   );
 }
 
-function getElement(data){                  // <---- Ciò che generalmente inserisco nella funcrion del success della chiamata ma tradotta in funzione
+function getElement(data){                  // <---- Ciò che generalmente inserisco nella function del success della chiamata, ma tradotto in funzione.
   var source = $("#entry-template").html();
   var template = Handlebars.compile(source);
   for (var i = 0; i < data.length; i++){ // Ciclo For per scorrere l'array.
